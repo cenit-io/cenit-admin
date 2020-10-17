@@ -4,10 +4,10 @@ module Cenit
     controller do
 
       get '/' do
-        render plain: 'Welcome!'
       end
 
       get '/authorization/:id' do
+
         error = status = nil
         if (auth = Setup::Authorization.where(id: params[:id]).first)
           token = auth.metadata['redirect_token']

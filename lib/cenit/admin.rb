@@ -6,8 +6,6 @@ module Cenit
 
     app_name 'Cenit Admin'
 
-    app_key 'admin'
-
   end
 end
 
