@@ -5,7 +5,7 @@ module Cenit
 
       get '/' do
         default_oauth_callback_uri = "#{::Cenit.homepage}#{::Cenit.oauth_path}/callback"
-        uris = redirect_uris - [default_oauth_callback_uri]
+        @uris = uris = redirect_uris - [default_oauth_callback_uri]
         if uris.size == 1
           uri =  URI.parse(uris[0])
           new_query_ar = URI.decode_www_form(String(uri.query)) << ['cenitHost', Cenit.homepage]
