@@ -9,10 +9,10 @@ module Cenit
           uri = URI.parse(uri)
           new_query_ar = URI.decode_www_form(String(uri.query)) << ['cenitHost', Cenit.homepage]
           uri.query = URI.encode_www_form(new_query_ar)
-          uri.to_s
+          uri
         end
         if uris.length == 1
-          redirect_to uris[0]
+          redirect_to uris[0].to_s
         end
       end
 

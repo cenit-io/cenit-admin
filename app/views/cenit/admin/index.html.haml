@@ -6,7 +6,7 @@
 
     .flex.column
       - @uris.each do |uri|
-        %a.list-item{href: uri}
-          =uri
+        %a.list-item{href: uri.to_s}
+          =uri.to_s.split('?').first
 
     .separator
