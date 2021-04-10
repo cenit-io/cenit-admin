@@ -16,6 +16,17 @@ module Cenit
         end
       end
 
+      get '/build_in_types' do
+        unless (build_ins = Setup::BuildInDataType.build_ins[:cache])
+          build_ins = Setup::BuildInDataType.build_ins[:cache] = []
+          Setup::BuildInDataType.each do |build_in|
+            dt = build_in.model.data_type
+            build_ins << dt.to_hash(viewport: '{_id namespace name title _type schema}')
+          end
+        end
+        render json: build_ins
+      end
+
       post '/config' do
         access_token = request.headers['Authorization'].to_s.split(' ')[1].to_s
         if (user_id = app.user_id_for(access_token))
