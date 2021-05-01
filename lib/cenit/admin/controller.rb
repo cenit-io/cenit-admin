@@ -18,11 +18,14 @@ module Cenit
 
       get '/build_in_types' do
         unless (build_ins = Setup::BuildInDataType.build_ins[:cache])
-          build_ins = Setup::BuildInDataType.build_ins[:cache] = []
-          Setup::BuildInDataType.each do |build_in|
-            dt = build_in.model.data_type
-            build_ins << dt.to_hash(viewport: '{_id namespace name title _type schema}')
+          User.with_super_access do
+            build_ins = []
+            Setup::BuildInDataType.each do |build_in|
+              dt = build_in.model.data_type
+              build_ins << dt.to_hash(viewport: '{_id namespace name title _type schema}')
+            end
           end
+          Setup::BuildInDataType.build_ins[:cache] = build_ins
         end
         render json: build_ins
       end
