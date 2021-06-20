@@ -59,6 +59,10 @@ module Cenit
           render json: { error: 'Invalid code' }, status: :unauthorized
         end
       end
+
+      get '/meta_config' do
+        render json: app.configuration.meta_config || {}
+      end
     end
 
   end
