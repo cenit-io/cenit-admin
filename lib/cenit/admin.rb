@@ -9,7 +9,7 @@ module Cenit
 
     oauth_authorization_for 'openid profile email session_access multi_tenant create read update delete digest'
 
-    DEFAULT_CLOUD_URL = 'https://cenit-ui.io'
+    DEFAULT_CLOUD_URL = 'https://app.cenit.io'
 
     default_url DEFAULT_CLOUD_URL
   end
