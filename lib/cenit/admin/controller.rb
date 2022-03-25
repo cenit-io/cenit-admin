@@ -21,6 +21,7 @@ module Cenit
           User.with_super_access do
             build_ins = []
             Setup::BuildInDataType.each do |build_in|
+              build_in.rebuild_schema
               dt = build_in.model.data_type
               build_ins << dt.to_hash(viewport: '{_id namespace name title _type schema}')
             end
