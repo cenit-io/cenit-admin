@@ -64,6 +64,27 @@ module Cenit
       get '/meta_config' do
         render json: app.configuration.meta_config || {}
       end
+
+      get '/send_reset_password_instructions' do
+        if (user = oauth_user)
+          begin
+            params = { email: user.email }
+            user = User.send_reset_password_instructions(params)
+            if user.errors.blank?
+              render json: params, status: :ok
+            else
+              errors = { errors: user.errors.full_messages }
+              render json: errors, status: :unprocessable_entity
+            end
+          rescue Exception => ex
+            errors = { errors: [ex.message] }
+            render json: errors, status: :unprocessable_entity
+          end
+        else
+          errors = { errors: ['Not authorized'] }
+          render json: errors, status: :unauthorized
+        end
+      end
     end
 
   end
