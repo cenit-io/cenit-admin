@@ -71,6 +71,7 @@ module Cenit
             params = { email: user.email }
             user = User.send_reset_password_instructions(params)
             if user.errors.blank?
+              user.invalidate_all_sessions!
               render json: params, status: :ok
             else
               errors = { errors: user.errors.full_messages }
