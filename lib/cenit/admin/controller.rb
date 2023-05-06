@@ -86,6 +86,12 @@ module Cenit
           render json: errors, status: :unauthorized
         end
       end
+
+      get 'oauth2/client/credentials' do
+        app = Cenit::BuildInApp.where(slug: 'admin').first;
+        data = { OAUTH_CLIENT_ID: app.identifier, OAUTH_CLIENT_SECRET: app.secret }.to_json
+        render json: { client_token: Base64.encode64(data).reverse }
+      end
     end
 
   end
