@@ -87,7 +87,7 @@ module Cenit
         end
       end
 
-      get 'oauth2/client/credentials' do
+      get 'oauth2_client_credentials' do
         app = Cenit::BuildInApp.where(slug: 'admin').first;
         data = { OAUTH_CLIENT_ID: app.identifier, OAUTH_CLIENT_SECRET: app.secret }.to_json
         render json: { client_token: Base64.encode64(data).reverse }
